@@ -2,11 +2,27 @@ input:focus {
   outline-width: 0px;
 }
 
-input#taskInput {
-  min-width: 100%;
+input {
+  min-width: 75%;
+}
+
+input:disabled {
+  background-color: white;
+}
+
+mat-icon {
+  height: fit-content;
+  color: lightgray;
+}
+
+mat-icon.deleteIcon {
+  color: lightsalmon;
 }
 
 .list-group-item {
   --list-group-item-padding-x: 0;
 }
+
+
+
 

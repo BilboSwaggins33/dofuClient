@@ -8,9 +8,7 @@ import { Task } from "./core/models/task.model";
 })
 export class AppComponent {
   title = "dofuCli";
-  task: Task
 
   constructor() {
-    this.task = new Task({name: "task 1", description: 'description 1'});
   }
 }

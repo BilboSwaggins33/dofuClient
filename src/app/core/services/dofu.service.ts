@@ -1,21 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { map, Observable } from "rxjs";
-import { environment } from "../../../environments/environment";
+import { BehaviorSubject, Subject } from "rxjs";
 import { Task } from "../models/task.model";
-import {format} from 'date-fns'
-import {TaskService} from "./task.service";
+import { Injectable } from "@angular/core";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DofuService {
-  dofuPath = '/api/dofu'
-  constructor(private httpClient: HttpClient) { }
 
+  selectedTask: Subject<Task> = new Subject<Task>();
 
-  // getDofu(date: Date): Observable<Task[]> {
-  //   return this.httpClient.get<Task[]>(`${environment.apiURL}${this.dofuPath}/${format(date, 'yyyy-MM-dd')}`);
-  // }
+  constructor() {}
+
+  public setCurrentTask(task: Task) {
+    this.selectedTask.next(task)
+  }
 
 }

@@ -1,18 +1,23 @@
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { catchError, map, Observable, retry, Subject, throwError } from "rxjs";
 import { Task } from "../models/task.model";
-import { HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpRequest, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
 export class TaskService {
-  taskPath = "/api/tasks";
+  taskPath = "/api/task";
+  selectedTask: Subject<Task | undefined | null> = new Subject<Task | undefined | null>();
 
-  constructor(private httpClient: HttpClient) {
-
+  constructor(public httpClient: HttpClient) {
   }
+
+  public setCurrentTask(task: Task | undefined | null) {
+    this.selectedTask.next(task)
+  }
+
 
   getTaskById(taskId: number): Observable<Task> {
     return this.httpClient.get<Task>(`${environment.apiURL}${this.taskPath}/${taskId}`);
@@ -20,17 +25,44 @@ export class TaskService {
   }
 
   addTask(task: Task): Observable<Task> {
-    const taskRequest = new Task(task);
-    return this.httpClient.post<Task>(`${environment.apiURL}${this.taskPath}/save`, taskRequest).pipe(map((createdTask: Task) => new Task({...taskRequest, ...createdTask})));
+    return this.httpClient.post<Task>(`${environment.apiURL}${this.taskPath}`, task).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
-  update(task: Task): Observable<Task> {
-    const taskRequest = new Task(task);
-
-    return this.httpClient.post<Task>(`${environment.apiURL}${this.taskPath}/save`, taskRequest).pipe(map((updatedTask: Task) => new Task({...taskRequest, ...updatedTask})));
+  updateTask(task: Task): Observable<Task> {
+    return this.httpClient.post<Task>(`${environment.apiURL}${this.taskPath}`, task).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
-  deleteById(taskId: string) {
-    return this.httpClient.delete(`${environment.apiURL}${this.taskPath}/${taskId}`)
+  deleteTaskById(taskId: number) {
+    return this.httpClient.delete(`${environment.apiURL}${this.taskPath}/${taskId}`).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  findTasksByDate(date: String) {
+    const params = new HttpParams().set('date', String(date));
+    return this.httpClient.get<Task[]>(`${environment.apiURL}${this.taskPath}/findByDate`, {
+      responseType: 'json',
+      params
+    });
+  }
+
+  private handleError(error: { error: { message: string; }; status: any; message: any; }) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 }
