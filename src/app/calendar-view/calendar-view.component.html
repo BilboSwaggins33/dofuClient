@@ -1,53 +1,13 @@
-<div class="h-50 border border-3 p-3 rounded-3">
+<app-header-view></app-header-view>
+<div class="h-50 border border-1 p-3 rounded-3">
   <div class="row .mx-0 g-0">
-    <div class="col border-end">
-      <app-date-title [date]="dofus[0].date"></app-date-title>
-    </div>
-    <div class="col border-end">
-      <app-date-title [date]="dofus[1].date"></app-date-title>
-    </div>
-    <div class="col border-end">
-      <app-date-title [date]="dofus[2].date"></app-date-title>
-    </div>
-    <div class="col border-end">
-      <app-date-title [date]="dofus[3].date"></app-date-title>
-    </div>
-    <div class="col">
-      <app-date-title [date]="dofus[4].date"></app-date-title>
+    <div class="col date-title" [style.border-right-width]="isLast(dofu) ? '0px' : '1px'"  *ngFor="let dofu of dofus">
+      <app-date-title [date]="dofu.date"></app-date-title>
     </div>
   </div>
-  <div cdkDropListGroup class="row .mx-0 g-0 text-center h-50">
-    <app-dofu-view class="col border-end" [date]="dofus[0].date"></app-dofu-view>
-    <app-dofu-view class="col border-end" [date]="dofus[1].date"></app-dofu-view>
-    <app-dofu-view  class="col border-end" [date]="dofus[2].date"></app-dofu-view>
-    <app-dofu-view  class="col border-end" [date]="dofus[3].date"></app-dofu-view>
-    <app-dofu-view  class="col" [date]="dofus[4].date"></app-dofu-view>
+  <div cdkDropListGroup  class="row .mx-0 g-0 text-center h-50">
+    <app-dofu-view *ngFor="let dofu of dofus" class="col" [style.border-right-width]="isLast(this.dofu) ? '0px' : '1px'" [date]="dofu.date"></app-dofu-view>
   </div>
 </div>
-
-<!--<p-table selectionMode="single" dataKey="code" [columns]="cols" [value]="dofus" [tableStyle]="{ 'min-width': '50rem' }">-->
-<!--  <ng-template pTemplate="header" let-columns>-->
-<!--    <tr>-->
-<!--      <th *ngFor="let col of columns">-->
-<!--          <div class="text-center fs-5 fw-medium">-->
-<!--            {{ col.split("/")[0] }}-->
-<!--          </div>-->
-<!--          <div class="text-center fw-normal">-->
-<!--            {{ col.split("/")[1] }}-->
-<!--          </div>-->
-<!--      </th>-->
-<!--    </tr>-->
-<!--  </ng-template>-->
-<!--  <ng-template pTemplate="body" let-dofu>-->
-<!--&lt;!&ndash;    <tr [pSelectableRow]="dofu">&ndash;&gt;-->
-<!--&lt;!&ndash;      <td><app-dofu-view [date]="dofu.date" [tasks] = dofu.tasks></app-dofu-view></td>&ndash;&gt;-->
-<!--&lt;!&ndash;      <td><app-dofu-view [date]="dofu.date" [tasks] = dofu.tasks></app-dofu-view></td>&ndash;&gt;-->
-<!--&lt;!&ndash;      <td><app-dofu-view [date]="dofu.date" [tasks] = dofu.tasks></app-dofu-view></td>&ndash;&gt;-->
-<!--&lt;!&ndash;      <td><app-dofu-view [date]="dofu.date" [tasks] = dofu.tasks></app-dofu-view></td>&ndash;&gt;-->
-<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
-<!--    <td><app-dofu-view [date]="dofu.date" [tasks] = "dofu.tasks"></app-dofu-view></td>-->
-<!--&lt;!&ndash;    <tr [pSelectableRow]="dofu"><div>bye</div></tr>&ndash;&gt;-->
-<!--  </ng-template>-->
-<!--</p-table>-->
 
 

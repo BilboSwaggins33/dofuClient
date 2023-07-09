@@ -2,17 +2,13 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Task } from "../core/models/task.model";
 import { TaskService } from "../core/services/task.service";
 import { Dofu } from "../core/models/dofu.model";
-import { Subscription } from "rxjs";
 import { format } from "date-fns";
-import { formatDate } from "@angular/common";
-import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { DofuService } from "../core/services/dofu.service";
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: "app-dofu-view",
   templateUrl: "./dofu-view.component.html",
   styleUrls: ["./dofu-view.component.css"],
-  providers: [TaskService, DofuService]
 })
 export class DofuViewComponent implements OnInit {
   @Input() dofu: Dofu;
@@ -30,9 +26,7 @@ export class DofuViewComponent implements OnInit {
 
 
     this.taskService.selectedTask.subscribe((selectedTask) => {
-      //this.selectedTask = selectedTask && this.id != undefined && (this.task.id == selectedTask.id)
       this.selectedTask = selectedTask;
-      console.log(this.selectedTask)
     })
   }
 
@@ -44,13 +38,13 @@ export class DofuViewComponent implements OnInit {
   }
 
   taskUpdated(task: Task) {
-    this.taskService.updateTask(task).subscribe((result) => {
+    this.taskService.updateTask(task).subscribe(() => {
       this.dofu.updateTask(task);
     });
   }
 
   taskDeleted(task: Task) {
-    this.taskService.deleteTaskById(task.id!).subscribe((result) => {
+    this.taskService.deleteTaskById(task.id!).subscribe(() => {
       this.dofu.deleteTask(task);
     })
   }

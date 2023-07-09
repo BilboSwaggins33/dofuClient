@@ -12,10 +12,16 @@ export class DateTitleComponent implements OnInit{
   dayOfWeek!: string
   month!: string
   year!: string
+  color: string
   constructor() {
+    this.color = 'teal'
   }
 
   ngOnInit() {
     [this.month, this.day, this.dayOfWeek, this.year] = format(this.date, "MMMM/d/eeee/yyyy").split(`/`)
+  }
+
+  isToday() {
+    return format(this.date, "M/d/yyyy") == new Date().toLocaleDateString()
   }
 }

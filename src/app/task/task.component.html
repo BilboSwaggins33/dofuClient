@@ -1,6 +1,6 @@
 <div class="flex-fill border-bottom w-100">
   <div class="d-flex flex-row align-items-center" (mouseenter)="hoverCheck(true)" (mouseleave)="hoverCheck(false)">
-    <div (mousedown)="toggleComplete()" class="w-100">
+    <div appMouseHold (mousehold)="toggleComplete($event)" class="w-100">
       <input autocomplete="off" [style.text-decoration]="this.task.complete ? 'line-through' : ''" [style.pointer-events]="this.editMode || !this.task.hasOwnProperty('id') ? 'all' : 'none'" disabled="{{!this.editMode && task.hasOwnProperty('id')}}" [(ngModel)]="this.task.name" name="taskName" (blur)="onBlur(this.task.name)" value={{this.task.name}} class="border-0 w-100 p-1">
     </div>
     <mat-icon class="editIcon" (mousedown)="setEditMode(true)" *ngIf="hovering && !this.task.complete && !editMode && (task.hasOwnProperty('id'))">edit</mat-icon>

@@ -1,10 +1,6 @@
-0;
 import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Task } from "../core/models/task.model";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TaskService } from "../core/services/task.service";
-import { take } from "rxjs";
-
 @Component({
   selector: "app-task",
   templateUrl: "./task.component.html",
@@ -54,11 +50,14 @@ export class TaskComponent implements OnInit {
     }
   }
 
-  toggleComplete() {
-    if (!this.editMode && this.task.hasOwnProperty('id')) {
-      this.task.complete = !this.task.complete
-      this.onTaskUpdated.emit(this.task);
+  toggleComplete(event: string) {
+    if (event == "click") {
+      if (!this.editMode && this.task.hasOwnProperty('id')) {
+        this.task.complete = !this.task.complete
+        this.onTaskUpdated.emit(this.task);
+      }
     }
+
   }
 
 

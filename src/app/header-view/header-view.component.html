@@ -1,1 +1,12 @@
-<p>header-view works!</p>
+<mat-toolbar class="mb-4 rounded-3">
+  <button (click)="beforeDate()" mat-icon-button>
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <span><p class="text-align-center">{{headerRange}}</p></span>
+  <span class="spacer"></span>
+  <button (click)="nextDate()" mat-icon-button>
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</mat-toolbar>
+
