@@ -1,5 +1,3 @@
-// @ts-ignore
-import {format} from 'date-fns'
 export class Task {
   id: number | undefined
   name: string = "";
