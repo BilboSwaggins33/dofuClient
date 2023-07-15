@@ -33,4 +33,5 @@ export class CalendarViewComponent implements OnInit {
     return dofu.date == this.dofus.at(-1)!.date;
   }
 
+
 }

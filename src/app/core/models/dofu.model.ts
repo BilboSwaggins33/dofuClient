@@ -10,6 +10,7 @@ export class Dofu {
     this.tasks = new Array<Task>(this.default).fill(new Task({}));
     for (let i = 0; i < arr.length; i++) {
       this.tasks[i] = arr[i];
+
     }
   }
 

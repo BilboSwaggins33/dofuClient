@@ -1,10 +1,16 @@
-<!--<div class="d-flex align-items-center justify-content-center">-->
-<!--  <div class="mx-4 w-100">-->
-<!--    <app-task class="w-100"></app-task>-->
-<!--  </div>-->
-<!--</div>-->
-<ul cdkDropList id="task-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="dofu.tasks" class="list-none flex flex-column p-0 m-0"  >
-  <li cdkDrag [cdkDragDisabled]="checkDrag(this.task)" (cdkDragDropped)="dragDropped(task)" [cdkDragData]="this.task"  id="task-box" *ngFor="let task of dofu.tasks" class="list-group-item px-1 shadow-1"><app-task (onTaskDeleted)="taskDeleted($event)" (onTaskAdded)="taskAdded($event)" (onTaskUpdated)="taskUpdated($event)" [id]="task.id"></app-task></li>
-<!--  <li id="task-box" *ngFor="let task of dofu.tasks" class="list-group-item px-1 shadow-1"><app-task (onTaskAdded)="taskAdded($event)" (onTaskUpdated)="taskUpdated($event)" (onTaskDeleted)="taskDeleted($event)" [id]="task.id"></app-task></li>-->
+<ul cdkDropList id="task-list" (cdkDropListDropped)="drop($event)" [cdkDropListData]="dofu.tasks"
+    class="list-none flex flex-column p-0 m-0">
+  <li cdkDrag [cdkDragDisabled]="checkDrag(this.task)" (cdkDragDropped)="dragDropped(task)" [cdkDragData]="this.task"
+      id="task-box" *ngFor="let task of dofu.tasks" class="list-group-item px-1 shadow-1">
+    <app-task (onTaskDeleted)="taskDeleted($event)" (onTaskAdded)="taskAdded($event)"
+              (onTaskUpdated)="taskUpdated($event)" [id]="task.id"></app-task>
+    <div *cdkDragPreview><div class="flex-fill w-100 container p-0 border-bottom opacity-100">
+      <div class="d-flex flex-row align-items-center w-100 p-0 opacity-100">
+        <div class="w-100 opacity-100">
+          <input autocomplete="off" [style.text-decoration]="task.complete ? 'line-through' : ''" disabled name="taskName" value={{task.name}} class="border-0 w-100 p-1 opacity-100">
+        </div>
+      </div>
+    </div></div>
+  </li>
 </ul>
 

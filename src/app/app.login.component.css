@@ -1,0 +1,12 @@
+mat-icon {
+  transform: scale(1.5);
+}
+
+.login-body {
+  min-width: 300px;
+}
+
+.login-content {
+  height: 90vh;
+  min-height: 300px;
+}

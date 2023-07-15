@@ -14,7 +14,7 @@ export class DateTitleComponent implements OnInit{
   year!: string
   color: string
   constructor() {
-    this.color = 'teal'
+    this.color = '#3b46a7'
   }
 
   ngOnInit() {

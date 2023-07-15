@@ -1,4 +1,4 @@
 <div class="text-center">
-  <p [style.color]="isToday() ? this.color : 'black' " class="fw-bold lh-1 fs-4">{{dayOfWeek}}</p>
-  <p [style.color]="isToday() ? this.color : 'black' " class="lh-1 fs-7">{{month}} {{day}}, {{year}}</p>
+  <p [style.color]="isToday() ? this.color : 'black' " class="fw-bold lh-1 fs-4">{{dayOfWeek.toLowerCase()}}</p>
+  <p [style.color]="isToday() ? this.color : 'black' " class="lh-1 fs-7">{{month.toLowerCase()}} {{day}}, {{year}}</p>
 </div>

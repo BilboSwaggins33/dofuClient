@@ -1,24 +1,30 @@
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { TaskComponent } from "./task/task.component";
-import { CalendarViewComponent } from './calendar-view/calendar-view.component';
-import { DofuViewComponent } from './dofu-view/dofu-view.component';
-import { DateTitleComponent } from './date-title/date-title.component';
+import { CalendarViewComponent } from "./calendar-view/calendar-view.component";
+import { DofuViewComponent } from "./dofu-view/dofu-view.component";
+import { DateTitleComponent } from "./date-title/date-title.component";
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
-import { DragDropModule } from 'primeng/dragdrop';
-import { TableModule } from 'primeng/table';
-import { ListboxModule } from 'primeng/listbox';
-import {BrowserModule} from '@angular/platform-browser'
-import {CorsInterceptor} from "./core/interceptors/cors.interceptor";
+import { BrowserModule } from "@angular/platform-browser";
+import { JwtInterceptor } from "./core/interceptors/jwt.interceptor";
 import { FormsModule } from "@angular/forms";
-import { CdkDrag, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
-import {MatButtonModule} from '@angular/material/button';
+import { CdkDrag, CdkDragPreview, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
+import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { HeaderViewComponent } from './header-view/header-view.component';
+import { HeaderViewComponent } from "./header-view/header-view.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { DofuService } from "./core/services/dofu.service";
 import { TaskService } from "./core/services/task.service";
-import { MouseHoldDirective } from './mouse-hold.directive';
+import { MouseHoldDirective } from "./mouse-hold.directive";
+import { AppLoginComponent } from "./app.login.component";
+import {
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+  SocialAuthServiceConfig
+} from "@abacritt/angularx-social-login";
+import { RouterOutlet } from "@angular/router";
+import { AppRoutingModule } from "./app-routing.module";
+import { AuthService } from "./core/services/auth.service";
 
 @NgModule({
   declarations: [
@@ -29,22 +35,41 @@ import { MouseHoldDirective } from './mouse-hold.directive';
     DateTitleComponent,
     HeaderViewComponent,
     MouseHoldDirective,
+    AppLoginComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    DragDropModule,
-    TableModule,
-    ListboxModule,
     FormsModule,
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    RouterOutlet,
+    AppRoutingModule,
+    GoogleSigninButtonModule,
+    CdkDragPreview
   ],
-  providers: [HttpClient, {provide: HTTP_INTERCEPTORS, useClass: CorsInterceptor, multi: true}, DofuService, TaskService],
+  providers: [HttpClient, DofuService, AuthService, TaskService,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: true,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID, provider: new GoogleLoginProvider(
+              "315687330122-oql11qeaddlv99jbt6rs9rl61331t7mo.apps.googleusercontent.com",
+              {scopes: "openid"})
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
