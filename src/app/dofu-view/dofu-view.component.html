@@ -4,13 +4,7 @@
       id="task-box" *ngFor="let task of dofu.tasks" class="list-group-item px-1 shadow-1">
     <app-task (onTaskDeleted)="taskDeleted($event)" (onTaskAdded)="taskAdded($event)"
               (onTaskUpdated)="taskUpdated($event)" [id]="task.id"></app-task>
-    <div *cdkDragPreview><div class="flex-fill w-100 container p-0 border-bottom opacity-100">
-      <div class="d-flex flex-row align-items-center w-100 p-0 opacity-100">
-        <div class="w-100 opacity-100">
-          <input autocomplete="off" [style.text-decoration]="task.complete ? 'line-through' : ''" disabled name="taskName" value={{task.name}} class="border-0 w-100 p-1 opacity-100">
-        </div>
-      </div>
-    </div></div>
+
   </li>
 </ul>
 
