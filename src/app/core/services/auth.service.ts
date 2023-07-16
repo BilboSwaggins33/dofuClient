@@ -16,7 +16,6 @@ export class AuthService {
     this.socialAuthService.authState.subscribe((user) => {
       if (user != null) {
         this.localTokenExists = true;
-        console.log(user)
         localStorage.setItem("idToken", user.idToken);
         this.router.navigate(["/home"]);
       } else {
