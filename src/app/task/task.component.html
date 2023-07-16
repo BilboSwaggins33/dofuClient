@@ -7,4 +7,14 @@
     <mat-icon class="deleteIcon" (mousedown)="this.onTaskDeleted.emit(this.task)" *ngIf="hovering && this.task.complete && !editMode  && (task.hasOwnProperty('id'))">close</mat-icon>
   </div>
 </div>
+<div *cdkDragPreview>
+  <div class="flex-fill w-100 container p-0 border-bottom opacity-100">
+    <div class="d-flex flex-row align-items-center w-100 p-0 opacity-100">
+      <div class="w-100 opacity-100">
+        <input autocomplete="off" [style.text-decoration]="task.complete ? 'line-through' : ''" disabled
+               name="taskName" value={{task.name}} class="border-0 w-100 p-1 opacity-100">
+      </div>
+    </div>
+  </div>
+</div>
 
